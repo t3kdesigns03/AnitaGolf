@@ -60,7 +60,7 @@
 
     /* Hole accordion */
     .hole-body { max-height: 0; overflow: hidden; transition: max-height 0.38s ease; }
-    .hole-body.open { max-height: 500px; }
+    .hole-body.open { max-height: 700px; } /* bumped: flyover btn + 4-item lists + text wrap on narrow screens */
     .hole-icon { transition: transform 0.3s ease; flex-shrink: 0; }
     .hole-icon.open { transform: rotate(180deg); }
 
@@ -1678,7 +1678,7 @@
      class="hidden fixed inset-0 z-[100] bg-black/80 items-center justify-center p-3 sm:p-6"
      role="dialog" aria-modal="true" aria-labelledby="flyover-modal-title"
      onclick="if(event.target===this)closeFlyover()">
-  <div class="bg-white rounded-2xl overflow-hidden w-full max-w-2xl shadow-2xl flex flex-col">
+  <div class="bg-white rounded-2xl overflow-hidden w-full max-w-2xl shadow-2xl flex flex-col max-h-[92vh]"> <!-- max-h prevents overflow in landscape mobile -->
 
     <!-- Modal header -->
     <div class="flex items-center justify-between px-5 py-3 bg-ggreen flex-shrink-0">
@@ -1690,8 +1690,8 @@
         </div>
       </div>
       <button onclick="closeFlyover()"
-              class="w-10 h-10 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition-colors flex-shrink-0"
-              aria-label="Close flyover video">
+              class="w-11 h-11 rounded-full bg-white/15 hover:bg-white/25 text-white flex items-center justify-center transition-colors flex-shrink-0"
+              aria-label="Close flyover video"> <!-- w-11 h-11 = 44px meets touch target minimum -->
         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
         </svg>
