@@ -239,6 +239,30 @@
       .hero-word:nth-child(7){transition-delay:0.42s}
       .hero-word:nth-child(8){transition-delay:0.49s}
 
+
+      /* ── Interactive logo ───────────────────────────────────────────────── */
+      .logo-interactive {
+        cursor: pointer;
+        transition: filter 0.35s ease, transform 0.35s ease;
+        transform-origin: center;
+      }
+      .logo-interactive:hover {
+        filter: drop-shadow(0 0 10px rgba(200,150,30,0.75)) drop-shadow(0 0 3px rgba(240,192,64,0.5));
+        transform: scale(1.06);
+      }
+      @keyframes logo-spin {
+        0%   { transform: rotate(0deg)   scale(1); }
+        40%  { transform: rotate(200deg) scale(1.12); }
+        70%  { transform: rotate(330deg) scale(1.05); }
+        100% { transform: rotate(360deg) scale(1); }
+      }
+      .logo-spinning {
+        animation: logo-spin 0.75s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+        filter: drop-shadow(0 0 14px rgba(240,192,64,0.85)) !important;
+      }
+      /* prevent hover transform competing during spin */
+      .logo-spinning:hover { transform: none; }
+
   </style>
 </head>
 <body class="bg-white font-body">
@@ -251,7 +275,7 @@
 
       <!-- Logo + Name -->
       <a href="#top" class="flex items-center gap-3 group flex-shrink-0" aria-label="Crestwood Hills — go to top">
-        <svg class="w-10 h-10 flex-shrink-0" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Crestwood Hills Golf Course emblem">
+        <svg class="w-10 h-10 flex-shrink-0 logo-interactive" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Crestwood Hills Golf Course emblem">
         <defs><clipPath id="lc-nav"><circle cx="50" cy="50" r="43"/></clipPath></defs>
         <circle cx="50" cy="50" r="49" fill="#1e5631"/>
         <circle cx="50" cy="50" r="48.5" fill="none" stroke="#c8961e" stroke-width="2.5"/>
@@ -338,7 +362,7 @@
 
     <!-- Emblem -->
     <div class="flex justify-center mb-6 drop-shadow-2xl">
-      <svg class="w-20 h-20 sm:w-28 sm:h-28" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Crestwood Hills Golf Course emblem">
+      <svg class="w-20 h-20 sm:w-28 sm:h-28 logo-interactive" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Crestwood Hills Golf Course emblem">
         <defs><clipPath id="lc-hero"><circle cx="50" cy="50" r="43"/></clipPath></defs>
         <circle cx="50" cy="50" r="49" fill="#1e5631"/>
         <circle cx="50" cy="50" r="48.5" fill="none" stroke="#c8961e" stroke-width="2.5"/>
@@ -1334,15 +1358,19 @@
 </section>
 
 <!-- ══════════════════════════════════════════════════════════ SCENIC BREAK -->
-<div class="relative h-52 sm:h-72 overflow-hidden" aria-hidden="true">
-  <img src="https://images.unsplash.com/photo-1600365977249-7f3b6428ce92?w=1600&q=80"
-       alt="" class="w-full h-full object-cover object-center"
-       loading="lazy"/>
-  <div class="absolute inset-0 bg-ggreen/50"></div>
+<div class="relative h-64 sm:h-96 overflow-hidden" aria-hidden="false">
+  <img src="https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1800&q=85"
+       alt="Panoramic view of Crestwood Hills Golf Course fairways at golden hour"
+       class="w-full h-full object-cover object-center scenic-parallax"
+       loading="lazy" style="transform-origin:center; transform:scale(1.08);"/>
+  <!-- Gradient overlay: dark at edges, lighter centre so image breathes -->
+  <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(10,35,18,0.72) 0%, rgba(10,35,18,0.28) 45%, rgba(10,35,18,0.55) 100%);"></div>
   <div class="absolute inset-0 flex items-center justify-center text-center px-4">
-    <div>
-      <p class="text-white/80 section-label mb-2">Crestwood Hills Golf Course</p>
-      <p class="font-display text-2xl sm:text-3xl text-white font-bold drop-shadow-lg">"Not a bad place to spend an afternoon."</p>
+    <div class="fade-up">
+      <p class="section-label text-ggold-lt tracking-widest mb-3">Crestwood Hills Golf Course</p>
+      <div class="divider-gold mx-auto mb-5"></div>
+      <p class="font-display text-3xl sm:text-5xl text-white font-bold drop-shadow-2xl leading-tight max-w-2xl mx-auto">"Not a bad place to spend an afternoon."</p>
+      <p class="text-white/60 text-sm mt-4 tracking-wide">— Anita, Iowa</p>
     </div>
   </div>
 </div>
@@ -1948,7 +1976,7 @@
       <!-- Brand -->
       <div class="sm:col-span-2 lg:col-span-1">
         <div class="flex items-center gap-3 mb-4">
-          <svg class="w-14 h-14" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Crestwood Hills Golf Course emblem">
+          <svg class="w-14 h-14 logo-interactive" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Crestwood Hills Golf Course emblem">
         <defs><clipPath id="lc-ft"><circle cx="50" cy="50" r="43"/></clipPath></defs>
         <circle cx="50" cy="50" r="49" fill="#1e5631"/>
         <circle cx="50" cy="50" r="48.5" fill="none" stroke="#c8961e" stroke-width="2.5"/>
@@ -2313,9 +2341,9 @@
     if (!bar) return;
     function updateBar() {
       var h = document.documentElement;
-      var pct = (h.scrollTop || document.body.scrollTop) /
-                (h.scrollHeight - h.clientHeight) * 100;
-      bar.style.width = Math.min(pct, 100) + '%';
+      var scrollY = window.pageYOffset || h.scrollTop || document.body.scrollTop;
+      var pct = scrollY / (h.scrollHeight - h.clientHeight) * 100;
+      bar.style.width = Math.min(Math.max(pct, 0), 100) + '%';
     }
     window.addEventListener('scroll', updateBar, { passive: true });
     updateBar();
@@ -2395,7 +2423,7 @@
     if (!btn) return;
     function check() {
       var h = document.documentElement;
-      var pct = (h.scrollTop || document.body.scrollTop) / (h.scrollHeight - h.clientHeight);
+      var pct = (window.pageYOffset || h.scrollTop || document.body.scrollTop) / (h.scrollHeight - h.clientHeight);
       btn.classList.toggle('visible', pct > 0.28);
     }
     window.addEventListener('scroll', check, { passive: true });
@@ -2436,6 +2464,40 @@
     if (!h1) return;
     // Trigger on load after a short delay for dramatic effect
     setTimeout(function () { h1.classList.add('hero-words-visible'); }, 200);
+  })();
+
+
+  /* ── Interactive logo spin (desktop hover glow + click/tap spin) ───────── */
+  (function () {
+    document.querySelectorAll('.logo-interactive').forEach(function (logo) {
+      function spin(e) {
+        if (e && e.type === 'touchend') e.preventDefault();
+        if (logo.classList.contains('logo-spinning')) return;
+        logo.classList.add('logo-spinning');
+        function done() {
+          logo.classList.remove('logo-spinning');
+          logo.removeEventListener('animationend', done);
+        }
+        logo.addEventListener('animationend', done);
+        // Fallback in case animationend doesn't fire
+        setTimeout(function () { logo.classList.remove('logo-spinning'); }, 900);
+      }
+      logo.addEventListener('click', spin);
+      logo.addEventListener('touchend', spin, { passive: false });
+    });
+  })();
+
+  /* ── Parallax slow-drift on scenic quote image ─────────────────────────── */
+  (function () {
+    var img = document.querySelector('.scenic-parallax');
+    if (!img) return;
+    var section = img.closest('div');
+    window.addEventListener('scroll', function () {
+      var rect = section.getBoundingClientRect();
+      if (rect.bottom < 0 || rect.top > window.innerHeight) return;
+      var progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+      img.style.transform = 'scale(1.08) translateY(' + (progress * 14 - 7) + 'px)';
+    }, { passive: true });
   })();
 
 </script>
