@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Crestwood Hills Golf Course | Anita, Iowa</title>
+  <meta name="description" content="Crestwood Hills Golf Course — a beautiful 40+ year, 18-hole public course in Anita, Iowa, bordered by Lake Anita State Park and Iowa's rolling hills. Drive or fly in today!" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'ggreen':    '#1e5631',
+            'ggreen-mid':'#2d7a54',
+            'ggreen-lt': '#52b788',
+            'gcream':    '#faf8f3',
+            'ggold':     '#c8961e',
+            'ggold-lt':  '#f0c040',
+            'gsky':      '#0077b6',
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            body:    ['Inter', 'system-ui', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* ── Base ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', system-ui, sans-serif; color: #1a2e1a; background: #fff; }
+    h1,h2,h3,h4 { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* ── Navbar ──────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      transition: background 0.35s, box-shadow 0.35s, padding 0.35s;
+      padding: 1.25rem 0;
+      background: transparent;
+    }
+    #navbar.scrolled {
+      background: #1e5631;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.18);
+      padding: 0.6rem 0;
+    }
+    #navbar a { transition: color 0.2s; }
+
+    /* ── Hero ─────────────────────────────────────────── */
+    .hero-bg {
+      background-image:
+        linear-gradient(to bottom, rgba(10,40,20,0.62) 0%, rgba(10,40,20,0.38) 60%, rgba(10,40,20,0.72) 100%),
+        url('https://images.unsplash.com/photo-1535131749006-b7f58c99034b?w=1920&q=80');
+      background-size: cover;
+      background-position: center 40%;
+    }
+
+    /* ── Sections ─────────────────────────────────────── */
+    .section-label {
+      display: inline-block;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #c8961e;
+      margin-bottom: 0.6rem;
+    }
+    .divider-gold {
+      width: 56px; height: 3px;
+      background: linear-gradient(90deg, #c8961e, #f0c040);
+      border-radius: 9px;
+      margin: 0.75rem auto 0;
+    }
+    .divider-gold-left { margin-left: 0; }
+
+    /* ── Hole Cards ────────────────────────────────────── */
+    .hole-card { transition: transform 0.22s, box-shadow 0.22s; }
+    .hole-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(30,86,49,0.13); }
+    .hole-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem; font-weight: 700;
+    }
+
+    /* ── Tabs ──────────────────────────────────────────── */
+    .tab-btn { transition: background 0.2s, color 0.2s, border-color 0.2s; }
+    .tab-btn.active { background: #1e5631; color: #fff; border-color: #1e5631; }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+
+    /* ── Pricing ──────────────────────────────────────── */
+    .pricing-row:nth-child(even) { background: #f3faf6; }
+
+    /* ── Fade-in on scroll ────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+
+    /* ── CTA button pulse ─────────────────────────────── */
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(200,150,30,0.5); }
+      70%  { box-shadow: 0 0 0 12px rgba(200,150,30,0); }
+      100% { box-shadow: 0 0 0 0 rgba(200,150,30,0); }
+    }
+    .btn-book { animation: pulse-ring 2.4s infinite; }
+
+    /* ── Mobile nav ───────────────────────────────────── */
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: block; }
+
+    /* ── iOS smooth scrolling for overflow tables ──────── */
+    .overflow-x-auto { -webkit-overflow-scrolling: touch; }
+
+    /* ── Tap highlight removal (cleaner mobile feel) ───── */
+    a, button { -webkit-tap-highlight-color: transparent; }
+
+    /* ── Prevent text size inflation on iOS landscape ──── */
+    html { -webkit-text-size-adjust: 100%; }
+
+    /* ── Safe area padding for bottom bar on notch phones  */
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+      #mobile-book-bar { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+      body { padding-bottom: calc(68px + env(safe-area-inset-bottom)); }
+    }
+    @media (min-width: 1024px) {
+      body { padding-bottom: 0 !important; }
+    }
+
+    /* ── Accordion (rules) ────────────────────────────── */
+    .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    .accordion-body.open { max-height: 600px; }
+    .accordion-icon { transition: transform 0.3s; }
+    .accordion-icon.open { transform: rotate(180deg); }
+
+    /* ── Table ────────────────────────────────────────── */
+    table { border-collapse: collapse; width: 100%; }
+    th { background: #1e5631; color: #fff; padding: 0.75rem 1rem; text-align: left; font-weight: 600; font-size: 0.85rem; letter-spacing: 0.04em; }
+    td { padding: 0.7rem 1rem; font-size: 0.92rem; border-bottom: 1px solid #e5ede8; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #f3faf6; }
+
+    /* ── Form ─────────────────────────────────────────── */
+    .form-input {
+      width: 100%; padding: 0.65rem 1rem;
+      border: 1.5px solid #d1e8da; border-radius: 8px;
+      font-size: 0.92rem; outline: none;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #fff;
+    }
+    .form-input:focus { border-color: #1e5631; box-shadow: 0 0 0 3px rgba(30,86,49,0.12); }
+    textarea.form-input { resize: vertical; min-height: 110px; }
+
+    /* ── Mobile bottom booking bar ───────────────────── */
+    #mobile-book-bar {
+      display: none;
+    }
+    @media (max-width: 1023px) {
+      #mobile-book-bar { display: flex; }
+      body { padding-bottom: 68px; }
+    }
+
+    /* ── Scroll-top button ────────────────────────────── */
+    #scroll-top {
+      position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 40;
+      background: #1e5631; color: #fff;
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.22);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.3s;
+      cursor: pointer;
+    }
+    #scroll-top.show { opacity: 1; pointer-events: auto; }
+  </style>
+</head>
+
+<body class="bg-white text-gray-900">
+
+<!-- ═══════════════════════════════════════════════════════
+     STICKY NAVBAR
+════════════════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+
+    <!-- Logo / Wordmark -->
+    <a href="#top" class="flex items-center gap-3 group">
+      <!-- NEW EMBLEM LOGO -->
+      <svg class="w-11 h-11 flex-shrink-0" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Crestwood Hills Golf Course emblem">
+        <defs><clipPath id="lc-nav"><circle cx="50" cy="50" r="43"/></clipPath></defs>
+        <circle cx="50" cy="50" r="49" fill="#1e5631"/>
+        <circle cx="50" cy="50" r="48.5" fill="none" stroke="#c8961e" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="43.5" fill="none" stroke="#c8961e" stroke-width="0.9" opacity="0.55"/>
+        <!-- Divider line top -->
+        <line x1="17" y1="29" x2="83" y2="29" stroke="#c8961e" stroke-width="0.7" opacity="0.55" clip-path="url(#lc-nav)"/>
+        <!-- Stars in sky -->
+        <circle cx="37" cy="21" r="0.9" fill="white" opacity="0.5" clip-path="url(#lc-nav)"/>
+        <circle cx="54" cy="18" r="0.9" fill="white" opacity="0.5" clip-path="url(#lc-nav)"/>
+        <circle cx="64" cy="22" r="0.6" fill="white" opacity="0.35" clip-path="url(#lc-nav)"/>
+        <!-- Back hills -->
+        <path d="M7 70 Q20 46 34 58 Q48 70 63 42 Q73 26 93 50 L93 100 L7 100 Z" fill="#285f3a" clip-path="url(#lc-nav)"/>
+        <!-- Mid hills -->
+        <path d="M7 83 Q24 64 42 75 Q58 85 76 63 Q84 55 93 65 L93 100 L7 100 Z" fill="#1d5230" clip-path="url(#lc-nav)"/>
+        <!-- Ground -->
+        <path d="M7 91 Q30 86 50 89 Q70 92 93 87 L93 100 L7 100 Z" fill="#163d24" clip-path="url(#lc-nav)"/>
+        <!-- Lake Anita reflection -->
+        <ellipse cx="32" cy="90" rx="18" ry="3.5" fill="#1e4060" opacity="0.55" clip-path="url(#lc-nav)"/>
+        <!-- Pine tree cluster left -->
+        <polygon points="19,84 25,64 31,84" fill="#112818" clip-path="url(#lc-nav)"/>
+        <polygon points="20,76 25,59 30,76" fill="#163520" clip-path="url(#lc-nav)"/>
+        <polygon points="21,68 25,55 29,68" fill="#1d4228" clip-path="url(#lc-nav)"/>
+        <rect x="23" y="84" width="4" height="5" fill="#0d1e12" clip-path="url(#lc-nav)"/>
+        <polygon points="29,84 34,68 39,84" fill="#112818" clip-path="url(#lc-nav)"/>
+        <polygon points="30,77 34,64 38,77" fill="#163520" clip-path="url(#lc-nav)"/>
+        <rect x="32" y="84" width="4" height="4" fill="#0d1e12" clip-path="url(#lc-nav)"/>
+        <!-- Golf flag -->
+        <line x1="74" y1="36" x2="74" y2="64" stroke="#f0c040" stroke-width="1.9" clip-path="url(#lc-nav)"/>
+        <path d="M74 36 Q81 40 87 37 Q81 44 74 47 Z" fill="#f0c040" clip-path="url(#lc-nav)"/>
+        <circle cx="74" cy="64" r="2.6" fill="#c8961e" clip-path="url(#lc-nav)"/>
+        <!-- Bottom divider + location text -->
+        <line x1="18" y1="87" x2="82" y2="87" stroke="#c8961e" stroke-width="0.6" opacity="0.45" clip-path="url(#lc-nav)"/>
+        <text x="50" y="95.5" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="6.2" fill="#f0c040" opacity="0.9" letter-spacing="1.5" font-weight="600" clip-path="url(#lc-nav)">ANITA · IOWA</text>
+      </svg>
+      <span class="font-display font-semibold text-white text-xl leading-tight">
+        Crestwood Hills<br/>
+        <span class="text-ggold-lt text-xs font-body font-normal tracking-widest uppercase">Golf Course</span>
+      </span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <div class="hidden lg:flex items-center gap-7">
+      <a href="#course" class="text-white/85 hover:text-ggold-lt text-sm font-medium">The Course</a>
+      <a href="#rates" class="text-white/85 hover:text-ggold-lt text-sm font-medium">Rates &amp; Memberships</a>
+      <a href="#rules" class="text-white/85 hover:text-ggold-lt text-sm font-medium">Rules</a>
+      <a href="#events" class="text-white/85 hover:text-ggold-lt text-sm font-medium">Events</a>
+      <a href="#contact" class="text-white/85 hover:text-ggold-lt text-sm font-medium">Contact</a>
+      <a href="tel:17127623803"
+         class="btn-book ml-2 bg-ggold hover:bg-amber-500 text-white font-semibold text-sm px-5 py-2.5 rounded-full shadow transition-colors duration-200">
+        📞 Call to Book
+      </a>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button id="menu-toggle" class="lg:hidden text-white p-2 rounded-md" aria-label="Open menu">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path id="menu-icon-open" stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        <path id="menu-icon-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Menu Dropdown -->
+  <div id="mobile-menu" class="lg:hidden bg-ggreen border-t border-white/10">
+    <div class="px-4 pt-3 pb-4 space-y-1">
+      <a href="#course"  class="block text-white/90 hover:text-ggold-lt py-3 text-sm font-medium border-b border-white/10" onclick="closeMobileMenu()">The Course</a>
+      <a href="#rates"   class="block text-white/90 hover:text-ggold-lt py-3 text-sm font-medium border-b border-white/10" onclick="closeMobileMenu()">Rates &amp; Memberships</a>
+      <a href="#rules"   class="block text-white/90 hover:text-ggold-lt py-3 text-sm font-medium border-b border-white/10" onclick="closeMobileMenu()">Rules</a>
+      <a href="#events"  class="block text-white/90 hover:text-ggold-lt py-3 text-sm font-medium border-b border-white/10" onclick="closeMobileMenu()">Events</a>
+      <a href="#contact" class="block text-white/90 hover:text-ggold-lt py-3 text-sm font-medium" onclick="closeMobileMenu()">Contact</a>
+      <a href="tel:17127623803"
+         class="block mt-3 bg-ggold hover:bg-amber-500 text-white font-semibold text-sm px-5 py-2.5 rounded-full text-center transition-colors">
+        📞 Call to Book
+      </a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════════ -->
+<section id="top" class="hero-bg min-h-screen flex flex-col justify-center items-center text-center px-4 pt-20 pb-24 sm:pb-8">
+  <div class="max-w-3xl mx-auto">
+    <!-- Hero logo emblem -->
+    <div class="mb-6">
+      <svg class="w-24 h-24 sm:w-28 sm:h-28 mx-auto drop-shadow-2xl" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><clipPath id="lc-hero"><circle cx="50" cy="50" r="43"/></clipPath></defs>
+        <circle cx="50" cy="50" r="49" fill="#1e5631"/>
+        <circle cx="50" cy="50" r="48.5" fill="none" stroke="#c8961e" stroke-width="2.5"/>
+        <circle cx="50" cy="50" r="43.5" fill="none" stroke="#c8961e" stroke-width="0.9" opacity="0.55"/>
+        <line x1="17" y1="29" x2="83" y2="29" stroke="#c8961e" stroke-width="0.7" opacity="0.55" clip-path="url(#lc-hero)"/>
+        <circle cx="37" cy="21" r="0.9" fill="white" opacity="0.5" clip-path="url(#lc-hero)"/>
+        <circle cx="54" cy="18" r="0.9" fill="white" opacity="0.5" clip-path="url(#lc-hero)"/>
+        <circle cx="64" cy="22" r="0.6" fill="white" opacity="0.35" clip-path="url(#lc-hero)"/>
+        <path d="M7 70 Q20 46 34 58 Q48 70 63 42 Q73 26 93 50 L93 100 L7 100 Z" fill="#285f3a" clip-path="url(#lc-hero)"/>
+        <path d="M7 83 Q24 64 42 75 Q58 85 76 63 Q84 55 93 65 L93 100 L7 100 Z" fill="#1d5230" clip-path="url(#lc-hero)"/>
+        <path d="M7 91 Q30 86 50 89 Q70 92 93 87 L93 100 L7 100 Z" fill="#163d24" clip-path="url(#lc-hero)"/>
+        <ellipse cx="32" cy="90" rx="18" ry="3.5" fill="#1e4060" opacity="0.55" clip-path="url(#lc-hero)"/>
+        <polygon points="19,84 25,64 31,84" fill="#112818" clip-path="url(#lc-hero)"/>
+        <polygon points="20,76 25,59 30,76" fill="#163520" clip-path="url(#lc-hero)"/>
+        <polygon points="21,68 25,55 29,68" fill="#1d4228" clip-path="url(#lc-hero)"/>
+        <rect x="23" y="84" width="4" height="5" fill="#0d1e12" clip-path="url(#lc-hero)"/>
+        <polygon points="29,84 34,68 39,84" fill="#112818" clip-path="url(#lc-hero)"/>
+        <polygon points="30,77 34,64 38,77" fill="#163520" clip-path="url(#lc-hero)"/>
+        <rect x="32" y="84" width="4" height="4" fill="#0d1e12" clip-path="url(#lc-hero)"/>
+        <line x1="74" y1="36" x2="74" y2="64" stroke="#f0c040" stroke-width="1.9" clip-path="url(#lc-hero)"/>
+        <path d="M74 36 Q81 40 87 37 Q81 44 74 47 Z" fill="#f0c040" clip-path="url(#lc-hero)"/>
+        <circle cx="74" cy="64" r="2.6" fill="#c8961e" clip-path="url(#lc-hero)"/>
+        <line x1="18" y1="87" x2="82" y2="87" stroke="#c8961e" stroke-width="0.6" opacity="0.45" clip-path="url(#lc-hero)"/>
+        <text x="50" y="95.5" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="6.2" fill="#f0c040" opacity="0.9" letter-spacing="1.5" font-weight="600" clip-path="url(#lc-hero)">ANITA · IOWA</text>
+      </svg>
+    </div>
+    <p class="section-label text-ggold-lt mb-3" style="letter-spacing:0.22em;">Est. 40+ Years · Anita, Iowa</p>
+    <h1 class="font-display text-3xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-5 drop-shadow-lg">
+      Where Iowa's Rolling Hills<br/>Meet the Fairway
+    </h1>
+    <p class="text-white/80 text-base sm:text-xl max-w-xl mx-auto mb-8 sm:mb-10 leading-relaxed px-2">
+      A beautiful 18-hole public course nestled beside Lake Anita State Park —
+      with views, challenge, and character that keep golfers coming back.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="tel:17127623803"
+         class="btn-book bg-ggold hover:bg-amber-500 text-white font-bold text-base px-8 py-4 rounded-full shadow-xl transition-colors duration-200">
+        📞 Call to Book a Tee Time
+      </a>
+      <a href="#course"
+         class="border-2 border-white/70 hover:border-white text-white hover:bg-white/10 font-semibold text-base px-8 py-4 rounded-full transition-all duration-200">
+        Explore the Course
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="absolute bottom-20 sm:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 opacity-60">
+    <span class="text-white text-xs tracking-widest uppercase">Scroll</span>
+    <svg class="w-5 h-5 text-white animate-bounce" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+    </svg>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     WELCOME / WHY CRESTWOOD HILLS
+════════════════════════════════════════════════════════ -->
+<section class="bg-gcream py-14 sm:py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Header -->
+    <div class="text-center mb-14 fade-up">
+      <span class="section-label">Welcome</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-ggreen mt-1">Why Crestwood Hills?</h2>
+      <div class="divider-gold mx-auto mt-3"></div>
+      <p class="text-gray-600 mt-5 max-w-2xl mx-auto text-base leading-relaxed">
+        Crestwood Hills Golf Course is a <strong>Private Stock Holding course open to the public</strong>.
+        At Crestwood Hills you will enjoy a <strong>40+ year, beautiful 18-hole course</strong> bordered by
+        Lake Anita State Park, Iowa's famous rolling hills, as well as the local airport.
+        <em class="text-ggreen font-semibold"> Drive or fly in today for a round!</em>
+      </p>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+      <!-- Card 1 -->
+      <div class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm hover:shadow-md transition-shadow fade-up text-center">
+        <div class="w-14 h-14 bg-ggreen/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-7 h-7 text-ggreen" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-ggreen text-lg mb-2">40+ Years of History</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">A beloved community course with decades of character, memories, and meticulously maintained fairways.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm hover:shadow-md transition-shadow fade-up text-center">
+        <div class="w-14 h-14 bg-ggreen/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-7 h-7 text-ggreen" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-ggreen text-lg mb-2">Open to the Public</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Private Stock Holding course with full public access. Members and non-members alike are always welcome.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm hover:shadow-md transition-shadow fade-up text-center">
+        <div class="w-14 h-14 bg-ggreen/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-7 h-7 text-ggreen" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-ggreen text-lg mb-2">Stunning Scenery</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Bordered by Lake Anita State Park and Iowa's iconic rolling hills — every round is a scenic escape.</p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="bg-white rounded-2xl p-5 sm:p-7 shadow-sm hover:shadow-md transition-shadow fade-up text-center">
+        <div class="w-14 h-14 bg-ggreen/10 rounded-full flex items-center justify-center mx-auto mb-4">
+          <svg class="w-7 h-7 text-ggreen" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+            <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="1.8"/>
+          </svg>
+        </div>
+        <h3 class="font-display font-semibold text-ggreen text-lg mb-2">Drive or Fly In</h3>
+        <p class="text-gray-500 text-sm leading-relaxed">Right next to the local airport — makes Crestwood Hills the perfect destination round, however you arrive.</p>
+      </div>
+
+    </div>
+
+    <!-- Book CTA strip -->
+    <div class="mt-10 sm:mt-14 bg-ggreen rounded-2xl px-5 sm:px-8 py-6 sm:py-8 flex flex-col sm:flex-row items-center justify-between gap-4 fade-up">
+      <div>
+        <p class="font-display text-white text-xl font-semibold">Ready to play?</p>
+        <p class="text-white/70 text-sm mt-0.5">Secure your spot on the course — tee times go fast on weekends.</p>
+      </div>
+      <a href="tel:17127623803"
+         class="flex-shrink-0 bg-ggold hover:bg-amber-500 text-white font-bold px-8 py-3.5 rounded-full shadow transition-colors duration-200 text-sm">
+        📞 (712) 762-3803
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     COURSE TOUR — HOLE BY HOLE
+════════════════════════════════════════════════════════ -->
+<section id="course" class="bg-white py-14 sm:py-20 px-4">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center mb-12 fade-up">
+      <span class="section-label">18-Hole Course</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-ggreen mt-1">Course Tour</h2>
+      <div class="divider-gold mx-auto mt-3"></div>
+      <p class="text-gray-500 mt-4 max-w-xl mx-auto text-sm leading-relaxed px-2">
+        Each hole at Crestwood Hills offers its own challenge — from water hazards and doglegs to elevated greens and stunning lake views.
+      </p>
+    </div>
+
+    <!-- Front Nine label -->
+    <div class="flex items-center gap-4 mb-6 fade-up">
+      <span class="font-display text-ggreen text-xl font-semibold">Front Nine</span>
+      <div class="flex-1 border-t border-ggreen/20"></div>
+      <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Holes 1–9</span>
+    </div>
+
+    <!-- Hole grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5 mb-12">
+
+      <!-- Hole 1 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 1</span>
+          <a href="https://www.youtube.com/watch?v=Lmk2_hrFYZk" target="_blank" rel="noopener"
+             class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">
+            ▶ Watch
+          </a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center">
+            <p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p>
+            <p class="font-display text-ggreen font-bold text-lg">308 yds</p>
+          </div>
+          <div class="text-center">
+            <p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p>
+            <p class="font-display text-ggreen font-bold text-lg">290 yds</p>
+          </div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Trees line both sides of the hole; taller trees flank the green on the left.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> A slice right risks Holes #2 or #18 tee.</li>
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Lateral hazard: tall grass behind cart path (right).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 2 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 2</span>
+          <a href="https://www.youtube.com/watch?v=j73_nprNboU" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">117 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">105 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-blue-400 mt-0.5">〜</span> Water hazard: pond front, creek back.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Long green stretching east to west.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Pond drop zone: right of cart path across the pond (sign posted).</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Backwater (creek) drop zone: northwest of the green.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 3 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 3</span>
+          <a href="https://www.youtube.com/watch?v=PFSJ8WiGjWY" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">290 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">275 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Out of bounds right past the white pole and on/past the gravel road.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Trees down both sides; one tall tree blocks ¾ of the green.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tee shot placement is critical to reach the green in two.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 4 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 4</span>
+          <a href="https://www.youtube.com/watch?v=APQihjfZtgQ" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">128 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">120 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Big trees left of the green; open to the right.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Small, undulated green sloped north to south.</li>
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Out of bounds: past the fence behind the green and far left (State Park).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 5 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 5</span>
+          <a href="https://www.youtube.com/watch?v=5vdAtzi2qhs" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">485 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">435 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Out of bounds all the way down the right side (Lake Anita).</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree line left; Lake Anita right — a breathtaking fairway.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Two long shots can reach the green in two; laying up is also a sound option.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 6 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 6</span>
+          <a href="https://www.youtube.com/watch?v=eFPz3PTY-qY" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">206 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">195 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines right and left all the way down; downhill approach.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> A hard green to hit — club selection is crucial.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Missing the green here can easily result in a bogey.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 7 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 7</span>
+          <a href="https://www.youtube.com/watch?v=st7HE6HX5SA" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">223 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">215 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines right and left all the way up.</li>
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Lateral hazard: water and thick brush right of the green.</li>
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Out of bounds over the green past the cart path.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Very unforgiving green — front hole location requires perfect speed or the ball rolls back down.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 8 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 8</span>
+          <a href="https://www.youtube.com/watch?v=D3o1P62XWY4" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">448 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">415 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <p class="text-xs font-semibold text-ggold uppercase tracking-wide mb-2">Dogleg Right</p>
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Out of bounds to the right until past the white pole.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines on both left and right all the way down.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 9 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 9</span>
+          <a href="https://www.youtube.com/watch?v=WYaNmV-yEN8" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">260 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">245 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines right and left all the way up.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Undulated two-tiered green demands a precise approach shot.</li>
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Out of bounds behind the hole past the fence and to the right (marked).</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /front nine grid -->
+
+    <!-- Back Nine label -->
+    <div class="flex items-center gap-4 mb-6 fade-up">
+      <span class="font-display text-ggreen text-xl font-semibold">Back Nine</span>
+      <div class="flex-1 border-t border-ggreen/20"></div>
+      <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Holes 10–18</span>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
+
+      <!-- Hole 10 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 10</span>
+          <a href="https://www.youtube.com/watch?v=W-2orvZ21Lw" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">320 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">300 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines right and left all the way down.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Shots played off the hill on the left can feed the ball back toward the right-side green.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 11 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 11</span>
+          <a href="https://www.youtube.com/watch?v=0-1qMkabeeo" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">360 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">320 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines right and left all the way up; 175 yards to the hilltop.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Over the hill, the ball funnels down from right to left.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Favorable approach is from the left side of the fairway.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 12 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 12</span>
+          <a href="https://www.youtube.com/watch?v=z9rfS_qJpK0" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">145 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">135 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Trees down both right and left sides.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Missing left sends your ball into Hole #17.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Missing far right risks bouncing off the cart path.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 13 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 13</span>
+          <a href="https://www.youtube.com/watch?v=AJWYVvg4bXw" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">448 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">428 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Up/downhill — 215 yards to the top of the hill.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines down both sides; two big trees left off the tee.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Missing right risks ending up in the grove of trees near Hole #12 tee.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 14 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 14</span>
+          <a href="https://www.youtube.com/watch?v=t7tMDqKtbDk" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">155 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">145 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Uphill; trees left side and 50 yards up the right.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Taller, thicker trees make up the terrain behind the green.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Missing right often results in a big bounce left into the grove left of the green.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 15 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 15</span>
+          <a href="https://www.youtube.com/watch?v=4hGcznh31SQ" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">255 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">235 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Out of bounds left of the OB pole; lateral past the pole and deep past it.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Another undulated, very firm green — precision required.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 16 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 16</span>
+          <a href="https://www.youtube.com/watch?v=yMkUSbQOGoc" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">360 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">350 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <p class="text-xs font-semibold text-ggold uppercase tracking-wide mb-2">Downhill</p>
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Lateral hazard: trees and tall grass all the way down the right side and behind the green.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines all the way down both sides.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 17 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 17</span>
+          <a href="https://www.youtube.com/watch?v=A5y6_mQEjbA" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">485 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">465 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Lateral all the way down the right side (tree line and tall grass).</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Two tall willow trees 360 yards down the middle of the fairway.</li>
+            <li class="flex gap-2"><span class="text-blue-400 mt-0.5">〜</span> Water hazard comes into play approaching the green (right side).</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines all the way down right and left.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hole 18 -->
+      <div class="hole-card bg-white border border-gray-100 rounded-2xl overflow-hidden shadow-sm fade-up">
+        <div class="bg-ggreen-mid px-5 py-3 flex items-center justify-between">
+          <span class="hole-number text-white">Hole 18</span>
+          <a href="https://www.youtube.com/watch?v=m-BPH_ztl8E" target="_blank" rel="noopener" class="text-ggold-lt hover:text-white text-xs font-semibold flex items-center gap-1 transition-colors">▶ Watch</a>
+        </div>
+        <div class="px-5 pt-4 pb-2 flex gap-6 border-b border-gray-50">
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Men's</p><p class="font-display text-ggreen font-bold text-lg">422 yds</p></div>
+          <div class="text-center"><p class="text-xs text-gray-400 font-medium uppercase tracking-wide">Women's</p><p class="font-display text-ggreen font-bold text-lg">400 yds</p></div>
+        </div>
+        <div class="px-5 py-4">
+          <ul class="text-sm text-gray-600 space-y-1.5">
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Tree lines all the way up right and left.</li>
+            <li class="flex gap-2"><span class="text-red-400 mt-0.5">◆</span> Out of bounds inside the fence on the right (private property).</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Uphill tee to green — plays 442 effective yards.</li>
+            <li class="flex gap-2"><span class="text-ggold mt-0.5">⚑</span> Coming up short rolls the ball back down the slope.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div><!-- /back nine grid -->
+
+    <!-- Legend -->
+    <div class="mt-8 flex flex-wrap gap-5 text-xs text-gray-500 fade-up">
+      <span class="flex items-center gap-1.5"><span class="text-ggold">⚑</span> Strategic note / feature</span>
+      <span class="flex items-center gap-1.5"><span class="text-red-400">◆</span> Out of bounds / penalty area</span>
+      <span class="flex items-center gap-1.5"><span class="text-blue-400">〜</span> Water hazard</span>
+      <span class="flex items-center gap-1.5"><span class="font-semibold text-ggold">▶ Watch</span> View hole flyover on YouTube</span>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     RATES & MEMBERSHIPS
+════════════════════════════════════════════════════════ -->
+<section id="rates" class="bg-gcream py-14 sm:py-20 px-4">
+  <div class="max-w-5xl mx-auto">
+
+    <div class="text-center mb-10 fade-up">
+      <span class="section-label">Pricing</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-ggreen mt-1">Rates &amp; Memberships</h2>
+      <div class="divider-gold mx-auto mt-3"></div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap justify-center gap-2 mb-8 fade-up" role="tablist">
+      <button class="tab-btn active border border-ggreen text-sm font-semibold px-4 py-2.5 rounded-full min-h-[44px]" onclick="switchTab('green-fees')" role="tab">Green Fees</button>
+      <button class="tab-btn border border-ggreen text-ggreen text-sm font-semibold px-4 py-2.5 rounded-full min-h-[44px]" onclick="switchTab('memberships')" role="tab">Memberships</button>
+      <button class="tab-btn border border-ggreen text-ggreen text-sm font-semibold px-4 py-2.5 rounded-full min-h-[44px]" onclick="switchTab('offseason')" role="tab">Off-Season</button>
+    </div>
+
+    <!-- Tab: Green Fees -->
+    <div id="tab-green-fees" class="tab-pane active fade-up">
+      <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div class="px-5 sm:px-6 py-5 border-b border-gray-100">
+          <h3 class="font-display font-semibold text-ggreen text-xl">Non-Member Green Fees</h3>
+          <p class="text-gray-500 text-sm mt-0.5">Walk-up or book online. All guests must register.</p>
+        </div>
+        <div class="overflow-x-auto -webkit-overflow-scrolling-touch">
+          <table>
+            <thead>
+              <tr>
+                <th>Day / Time</th>
+                <th>9 Holes</th>
+                <th>18 Holes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="font-medium">Weekdays (Mon–Thu)</td><td>$25</td><td>$30</td></tr>
+              <tr><td class="font-medium">Weekends &amp; Holidays (Fri–Sun)</td><td>$30</td><td>$35</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="px-6 py-5 border-t border-gray-100">
+          <h4 class="font-semibold text-ggreen text-base mb-2">Cart Rental</h4>
+          <div class="grid grid-cols-2 gap-4 max-w-sm">
+            <div class="bg-ggreen/5 rounded-xl p-4 text-center">
+              <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">9 Holes</p>
+              <p class="font-display text-ggreen text-2xl font-bold">$10</p>
+              <p class="text-xs text-gray-400">per seat</p>
+            </div>
+            <div class="bg-ggreen/5 rounded-xl p-4 text-center">
+              <p class="text-xs text-gray-500 uppercase tracking-wide mb-1">18 Holes</p>
+              <p class="font-display text-ggreen text-2xl font-bold">$15</p>
+              <p class="text-xs text-gray-400">per seat</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab: Memberships -->
+    <div id="tab-memberships" class="tab-pane fade-up">
+      <div class="bg-white rounded-2xl shadow-sm overflow-hidden mb-5">
+        <div class="px-6 py-5 border-b border-gray-100">
+          <h3 class="font-display font-semibold text-ggreen text-xl">2026 Annual Dues</h3>
+          <p class="text-gray-500 text-sm mt-0.5">Dues are due April 1st, 2026. NO EXCEPTIONS!</p>
+        </div>
+        <!-- Mobile card layout (hidden md+) -->
+        <div class="md:hidden divide-y divide-gray-100">
+          <div class="grid grid-cols-3 text-xs font-semibold text-gray-400 uppercase tracking-wide px-4 py-2 bg-ggreen/5">
+            <span>Type</span><span class="text-center">W/o Cert.</span><span class="text-center">W/ Cert.</span>
+          </div>
+          <div class="grid grid-cols-3 items-center px-4 py-3">
+            <span class="font-medium text-sm text-gray-700">Family</span>
+            <span class="text-center font-bold text-ggreen">$710</span>
+            <span class="text-center font-bold text-ggreen">$680</span>
+          </div>
+          <div class="grid grid-cols-3 items-center px-4 py-3 bg-ggreen/5">
+            <span class="font-medium text-sm text-gray-700">Single</span>
+            <span class="text-center font-bold text-ggreen">$660</span>
+            <span class="text-center font-bold text-ggreen">$630</span>
+          </div>
+          <div class="grid grid-cols-3 items-center px-4 py-3">
+            <span class="font-medium text-sm text-gray-700">Student</span>
+            <span class="col-span-2 text-center font-bold text-ggreen">$250</span>
+          </div>
+          <div class="grid grid-cols-3 items-center px-4 py-3 bg-ggreen/5">
+            <span class="font-medium text-sm text-gray-700">College</span>
+            <span class="col-span-2 text-center font-bold text-ggreen">$250</span>
+          </div>
+          <div class="px-4 py-2 text-xs text-gray-400 italic">Single = Unmarried Only</div>
+        </div>
+        <!-- Desktop table (hidden on mobile) -->
+        <div class="hidden md:block overflow-x-auto">
+          <table>
+            <thead>
+              <tr>
+                <th>Membership Type</th>
+                <th>Without Certificate</th>
+                <th>With Certificate</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td class="font-medium">Family</td><td>$710</td><td>$680</td></tr>
+              <tr><td class="font-medium">Single (Unmarried Only)</td><td>$660</td><td>$630</td></tr>
+              <tr><td class="font-medium">Student</td><td colspan="2" class="font-semibold text-ggreen">$250</td></tr>
+              <tr><td class="font-medium">College</td><td colspan="2" class="font-semibold text-ggreen">$250</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="px-6 py-4 bg-amber-50 border-t border-amber-100">
+          <p class="text-amber-800 text-sm font-medium">
+            ⚠ No ½ year memberships. No installments or post-dated checks. Dues are due April 1st, 2026 — NO EXCEPTIONS!
+          </p>
+        </div>
+      </div>
+
+      <!-- New Member Special card -->
+      <div class="bg-ggreen rounded-2xl p-5 sm:p-7 text-white text-center shadow-md">
+        <span class="inline-block bg-ggold text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest mb-4">New Member Special</span>
+        <h3 class="font-display text-2xl font-bold mb-2">First-Time Members Only</h3>
+        <p class="text-white/70 text-sm mb-5 max-w-md mx-auto">1 year only — for those who have never been a member previously. Call us today to sign up!</p>
+        <div class="flex justify-center gap-6">
+          <div>
+            <p class="text-xs text-white/60 uppercase tracking-wide mb-1">Single</p>
+            <p class="font-display text-4xl font-bold text-ggold-lt">$450</p>
+          </div>
+          <div class="w-px bg-white/20"></div>
+          <div>
+            <p class="text-xs text-white/60 uppercase tracking-wide mb-1">Family</p>
+            <p class="font-display text-4xl font-bold text-ggold-lt">$500</p>
+          </div>
+        </div>
+        <a href="tel:17127623803" class="mt-6 inline-block bg-white text-ggreen font-semibold text-sm px-7 py-3 rounded-full hover:bg-ggold-lt hover:text-ggreen transition-colors">
+          📞 Call (712) 762-3803 to Join
+        </a>
+      </div>
+    </div>
+
+    <!-- Tab: Off-Season -->
+    <div id="tab-offseason" class="tab-pane fade-up">
+      <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
+        <div class="px-6 py-5 border-b border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <h3 class="font-display font-semibold text-ggreen text-xl">Off-Season Special</h3>
+            <p class="text-gray-500 text-sm mt-0.5">March 25th – May 28th · Monday–Thursday only</p>
+          </div>
+          <span class="inline-block bg-ggreen/10 text-ggreen text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider self-start sm:self-center">
+            Limited Time
+          </span>
+        </div>
+        <div class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div class="border-2 border-ggreen/20 rounded-xl p-6 text-center hover:border-ggreen transition-colors">
+            <p class="text-xs text-gray-500 uppercase tracking-wide font-semibold mb-2">1 Person</p>
+            <p class="font-display text-ggreen text-4xl font-bold mb-1">$30</p>
+            <p class="text-gray-500 text-sm">18 holes with cart</p>
+          </div>
+          <div class="border-2 border-ggold/40 rounded-xl p-6 text-center bg-amber-50 hover:border-ggold transition-colors">
+            <p class="text-xs text-ggold uppercase tracking-wide font-semibold mb-2">2 People</p>
+            <p class="font-display text-ggreen text-4xl font-bold mb-1">$45</p>
+            <p class="text-gray-500 text-sm">18 holes with cart</p>
+          </div>
+        </div>
+        <div class="px-6 pb-5">
+          <p class="text-gray-500 text-xs text-center">Valid Mon–Thu between March 25th and May 28th only. Cannot be combined with other offers.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Book CTA -->
+    <div class="text-center mt-10 fade-up">
+      <a href="tel:17127623803"
+         class="btn-book inline-block bg-ggold hover:bg-amber-500 text-white font-bold px-10 py-4 rounded-full shadow-xl transition-colors duration-200 text-base">
+        📞 Call (712) 762-3803 to Reserve
+      </a>
+      <p class="text-gray-400 text-xs mt-3">Questions? Email <a href="mailto:golfcrestwoodhills@gmail.com" class="text-ggreen hover:underline">golfcrestwoodhills@gmail.com</a></p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     COURSE RULES
+════════════════════════════════════════════════════════ -->
+<section id="rules" class="bg-white py-14 sm:py-20 px-4">
+  <div class="max-w-3xl mx-auto">
+
+    <div class="text-center mb-10 fade-up">
+      <span class="section-label">On the Course</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-ggreen mt-1">Course Rules</h2>
+      <div class="divider-gold mx-auto mt-3"></div>
+      <p class="text-gray-500 mt-4 text-sm">All players must familiarize themselves with local rules before playing.</p>
+    </div>
+
+    <div class="space-y-3 fade-up">
+
+      <div class="flex gap-4 items-start bg-gcream rounded-xl p-5">
+        <span class="flex-shrink-0 w-8 h-8 bg-ggreen text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5">1</span>
+        <p class="text-gray-700 text-sm leading-relaxed">USGA rules govern all play except for local modifications.</p>
+      </div>
+
+      <div class="flex gap-4 items-start bg-gcream rounded-xl p-5">
+        <span class="flex-shrink-0 w-8 h-8 bg-ggreen text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5">2</span>
+        <p class="text-gray-700 text-sm leading-relaxed">Green Fees – All guests must register.</p>
+      </div>
+
+      <div class="flex gap-4 items-start bg-gcream rounded-xl p-5">
+        <span class="flex-shrink-0 w-8 h-8 bg-ggreen text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5">3</span>
+        <p class="text-gray-700 text-sm leading-relaxed">Winter Rules – Improve lie by hand or club in your fairway only.</p>
+      </div>
+
+      <div class="flex gap-4 items-start bg-gcream rounded-xl p-5">
+        <span class="flex-shrink-0 w-8 h-8 bg-ggreen text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5">4</span>
+        <p class="text-gray-700 text-sm leading-relaxed">Out of bounds area is boundary fence on south side of No. 5 fairway and cart path No. 18. Also, road on No. 15 &amp; on No. 3. Ball to be replayed from original spot. One stroke and loss of distance. No. 8 out of bounds from white pole on right side of fairway back to tee box. Out of bounds poles on No. 15 &amp; No. 3.</p>
+      </div>
+
+      <div class="flex gap-4 items-start bg-gcream rounded-xl p-5">
+        <span class="flex-shrink-0 w-8 h-8 bg-ggreen text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5">5</span>
+        <p class="text-gray-700 text-sm leading-relaxed">Right side 15, 16, 17 fairways are lateral hazards.</p>
+      </div>
+
+      <div class="flex gap-4 items-start bg-gcream rounded-xl p-5">
+        <span class="flex-shrink-0 w-8 h-8 bg-ggreen text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5">6</span>
+        <p class="text-gray-700 text-sm leading-relaxed">No. 2 drop area across pond — 1 stroke penalty.</p>
+      </div>
+
+      <div class="flex gap-4 items-start bg-gcream rounded-xl p-5">
+        <span class="flex-shrink-0 w-8 h-8 bg-ggreen text-white text-sm font-bold rounded-full flex items-center justify-center mt-0.5">7</span>
+        <p class="text-gray-700 text-sm leading-relaxed">Replace divots — repair ball marks.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     EVENTS & OUTINGS
+════════════════════════════════════════════════════════ -->
+<section id="events" class="py-14 sm:py-20 px-4"
+  style="background-image: linear-gradient(to right, rgba(10,40,20,0.90), rgba(10,40,20,0.75)), url('https://images.unsplash.com/photo-1587174486073-ae5e5cff23aa?w=1600&q=80'); background-size:cover; background-position:center;">
+  <div class="max-w-4xl mx-auto text-center">
+
+    <span class="section-label text-ggold-lt">Events &amp; Outings</span>
+    <h2 class="font-display text-3xl sm:text-4xl font-bold text-white mt-1 mb-5">Host Your Next Outing at Crestwood Hills</h2>
+    <p class="text-white/75 max-w-2xl mx-auto text-base leading-relaxed mb-10">
+      Whether it's a corporate scramble, charity tournament, or family reunion round, Crestwood Hills offers a gorgeous setting and friendly service that will make your event unforgettable. For events, outings, and group bookings — reach out and we'll make it happen.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-10">
+      <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 sm:p-6 text-white text-center">
+        <div class="text-3xl mb-3">🏌️</div>
+        <h3 class="font-display font-semibold text-lg mb-1">Corporate Outings</h3>
+        <p class="text-white/65 text-sm">Team-building rounds and client entertainment in a beautiful Iowa setting.</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 sm:p-6 text-white text-center">
+        <div class="text-3xl mb-3">🏆</div>
+        <h3 class="font-display font-semibold text-lg mb-1">Tournaments</h3>
+        <p class="text-white/65 text-sm">Charity scrambles, club events, and competitive tournaments welcome.</p>
+      </div>
+      <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-5 sm:p-6 text-white text-center">
+        <div class="text-3xl mb-3">👨‍👩‍👧</div>
+        <h3 class="font-display font-semibold text-lg mb-1">Group Play</h3>
+        <p class="text-white/65 text-sm">Family outings, buddy trips, and group bookings — all are welcome.</p>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="#contact" class="bg-ggold hover:bg-amber-500 text-white font-bold px-8 py-4 rounded-full shadow transition-colors duration-200">
+        Inquire About an Event
+      </a>
+      <a href="https://www.facebook.com/Crestwood-Hills-Golf-Course-113329752033088/" target="_blank" rel="noopener"
+         class="border-2 border-white/60 hover:border-white text-white font-semibold px-8 py-4 rounded-full transition-all duration-200">
+        Follow on Facebook
+      </a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     CONTACT & PLAN YOUR VISIT
+════════════════════════════════════════════════════════ -->
+<section id="contact" class="bg-gcream py-14 sm:py-20 px-4">
+  <div class="max-w-6xl mx-auto">
+
+    <div class="text-center mb-12 fade-up">
+      <span class="section-label">Find Us</span>
+      <h2 class="font-display text-3xl sm:text-4xl font-bold text-ggreen mt-1">Plan Your Visit</h2>
+      <div class="divider-gold mx-auto mt-3"></div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+      <!-- Left: Contact Info + Form -->
+      <div class="fade-up">
+
+        <!-- Contact Cards -->
+        <div class="space-y-4 mb-8">
+          <a href="https://www.google.com/maps/place/Crestwood+Hills+Golf+Course/@41.4353938,-94.7715924,17z" target="_blank" rel="noopener"
+             class="flex items-center gap-4 bg-white rounded-xl p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow group min-h-[64px]">
+            <div class="w-10 h-10 bg-ggreen/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-5 h-5 text-ggreen" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-ggreen text-sm group-hover:underline">1101 Hillcrest Dr, Anita, IA 50020</p>
+              <p class="text-gray-400 text-xs mt-0.5">Get directions →</p>
+            </div>
+          </a>
+
+          <a href="tel:17127623803" class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow group">
+            <div class="w-10 h-10 bg-ggreen/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-5 h-5 text-ggreen" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-ggreen text-sm group-hover:underline">(712) 762-3803</p>
+              <p class="text-gray-400 text-xs mt-0.5">Give us a call</p>
+            </div>
+          </a>
+
+          <a href="mailto:golfcrestwoodhills@gmail.com" class="flex items-start gap-4 bg-white rounded-xl p-5 shadow-sm hover:shadow-md transition-shadow group">
+            <div class="w-10 h-10 bg-ggreen/10 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+              <svg class="w-5 h-5 text-ggreen" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-semibold text-ggreen text-sm group-hover:underline">golfcrestwoodhills@gmail.com</p>
+              <p class="text-gray-400 text-xs mt-0.5">Send us an email</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Contact Form -->
+        <div class="bg-white rounded-2xl shadow-sm p-5 sm:p-6">
+          <h3 class="font-display font-semibold text-ggreen text-lg mb-4">Send a Message</h3>
+          <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">First Name</label>
+                <input type="text" class="form-input" placeholder="Jane" autocomplete="given-name" required />
+              </div>
+              <div>
+                <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Last Name</label>
+                <input type="text" class="form-input" placeholder="Doe" autocomplete="family-name" required />
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Email</label>
+              <input type="email" class="form-input" placeholder="jane@example.com" autocomplete="email" inputmode="email" required />
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-gray-600 mb-1.5 uppercase tracking-wide">Message</label>
+              <textarea class="form-input" placeholder="Question about memberships, events, or tee times…"></textarea>
+            </div>
+            <button type="submit"
+              class="w-full bg-ggreen hover:bg-ggreen-mid text-white font-semibold py-3.5 rounded-xl transition-colors text-sm min-h-[48px]">
+              Send Message
+            </button>
+            <p id="form-success" class="hidden text-green-600 text-sm text-center font-medium">
+              ✓ Thanks! We'll be in touch soon.
+            </p>
+          </form>
+        </div>
+
+        <!-- Newsletter -->
+        <div class="mt-5 bg-ggreen rounded-2xl p-5">
+          <h3 class="font-display text-white font-semibold text-base mb-1">Subscribe to Our Newsletter</h3>
+          <p class="text-white/65 text-xs mb-3">Get course updates, event announcements, and seasonal deals.</p>
+          <form class="flex flex-col xs:flex-row gap-2" onsubmit="handleNewsletterSubmit(event)" style="flex-wrap:wrap;">
+            <input type="email" class="form-input flex-1 text-sm min-w-0" placeholder="your@email.com" autocomplete="email" inputmode="email" required style="min-width:160px;" />
+            <button type="submit" class="bg-ggold hover:bg-amber-500 text-white font-semibold px-5 py-2.5 rounded-lg text-sm transition-colors flex-shrink-0 min-h-[44px]">
+              Subscribe
+            </button>
+          </form>
+          <p id="newsletter-success" class="hidden text-ggold-lt text-xs mt-2">✓ You're subscribed!</p>
+        </div>
+
+      </div><!-- /left -->
+
+      <!-- Right: Map -->
+      <div class="fade-up rounded-2xl overflow-hidden shadow-sm" style="min-height: 320px; height: clamp(320px, 50vw, 520px);">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2991.1764065427246!2d-94.77159238422439!3d41.43539377925989!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87ecbe639427b9b5%3A0xaab26a8f795dbf4f!2sCrestwood+Hills+Golf+Course!5e0!3m2!1ses!2sus!4v1539263718476"
+          width="100%" height="100%"
+          style="border:0; min-height: 380px;"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          title="Crestwood Hills Golf Course on Google Maps">
+        </iframe>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════ -->
+<footer class="bg-ggreen text-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 sm:gap-10">
+
+      <!-- Brand -->
+      <div>
+        <div class="flex items-center gap-3 mb-4">
+          <!-- Footer emblem logo -->
+          <svg class="w-12 h-12 flex-shrink-0" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-label="Crestwood Hills Golf Course emblem">
+            <defs><clipPath id="lc-ft"><circle cx="50" cy="50" r="43"/></clipPath></defs>
+            <circle cx="50" cy="50" r="49" fill="#1e5631"/>
+            <circle cx="50" cy="50" r="48.5" fill="none" stroke="#c8961e" stroke-width="2.5"/>
+            <circle cx="50" cy="50" r="43.5" fill="none" stroke="#c8961e" stroke-width="0.9" opacity="0.55"/>
+            <line x1="17" y1="29" x2="83" y2="29" stroke="#c8961e" stroke-width="0.7" opacity="0.55" clip-path="url(#lc-ft)"/>
+            <circle cx="37" cy="21" r="0.9" fill="white" opacity="0.5" clip-path="url(#lc-ft)"/>
+            <circle cx="54" cy="18" r="0.9" fill="white" opacity="0.5" clip-path="url(#lc-ft)"/>
+            <circle cx="64" cy="22" r="0.6" fill="white" opacity="0.35" clip-path="url(#lc-ft)"/>
+            <path d="M7 70 Q20 46 34 58 Q48 70 63 42 Q73 26 93 50 L93 100 L7 100 Z" fill="#285f3a" clip-path="url(#lc-ft)"/>
+            <path d="M7 83 Q24 64 42 75 Q58 85 76 63 Q84 55 93 65 L93 100 L7 100 Z" fill="#1d5230" clip-path="url(#lc-ft)"/>
+            <path d="M7 91 Q30 86 50 89 Q70 92 93 87 L93 100 L7 100 Z" fill="#163d24" clip-path="url(#lc-ft)"/>
+            <ellipse cx="32" cy="90" rx="18" ry="3.5" fill="#1e4060" opacity="0.55" clip-path="url(#lc-ft)"/>
+            <polygon points="19,84 25,64 31,84" fill="#112818" clip-path="url(#lc-ft)"/>
+            <polygon points="20,76 25,59 30,76" fill="#163520" clip-path="url(#lc-ft)"/>
+            <polygon points="21,68 25,55 29,68" fill="#1d4228" clip-path="url(#lc-ft)"/>
+            <rect x="23" y="84" width="4" height="5" fill="#0d1e12" clip-path="url(#lc-ft)"/>
+            <polygon points="29,84 34,68 39,84" fill="#112818" clip-path="url(#lc-ft)"/>
+            <polygon points="30,77 34,64 38,77" fill="#163520" clip-path="url(#lc-ft)"/>
+            <rect x="32" y="84" width="4" height="4" fill="#0d1e12" clip-path="url(#lc-ft)"/>
+            <line x1="74" y1="36" x2="74" y2="64" stroke="#f0c040" stroke-width="1.9" clip-path="url(#lc-ft)"/>
+            <path d="M74 36 Q81 40 87 37 Q81 44 74 47 Z" fill="#f0c040" clip-path="url(#lc-ft)"/>
+            <circle cx="74" cy="64" r="2.6" fill="#c8961e" clip-path="url(#lc-ft)"/>
+            <line x1="18" y1="87" x2="82" y2="87" stroke="#c8961e" stroke-width="0.6" opacity="0.45" clip-path="url(#lc-ft)"/>
+            <text x="50" y="95.5" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="6.2" fill="#f0c040" opacity="0.9" letter-spacing="1.5" font-weight="600" clip-path="url(#lc-ft)">ANITA · IOWA</text>
+          </svg>
+          <span class="font-display font-semibold text-white text-lg leading-tight">
+            Crestwood Hills<br/>
+            <span class="text-ggold-lt text-xs font-body font-normal tracking-widest uppercase">Golf Course</span>
+          </span>
+        </div>
+        <p class="text-white/60 text-sm leading-relaxed max-w-xs">
+          A Private Stock Holding course open to the public. Celebrating 40+ years of beautiful golf in the heart of Iowa.
+        </p>
+        <div class="flex gap-3 mt-5">
+          <a href="https://www.facebook.com/Crestwood-Hills-Golf-Course-113329752033088/" target="_blank" rel="noopener"
+             class="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" aria-label="Facebook">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="mailto:golfcrestwoodhills@gmail.com"
+             class="w-9 h-9 bg-white/10 hover:bg-white/20 rounded-full flex items-center justify-center transition-colors" aria-label="Email">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-semibold text-white text-sm uppercase tracking-widest mb-4">Quick Links</h4>
+        <ul class="space-y-2.5 text-sm text-white/65">
+          <li><a href="#course" class="hover:text-ggold-lt transition-colors">Course Overview</a></li>
+          <li><a href="#rates" class="hover:text-ggold-lt transition-colors">Rates &amp; Memberships</a></li>
+          <li><a href="#rules" class="hover:text-ggold-lt transition-colors">Course Rules</a></li>
+          <li><a href="#events" class="hover:text-ggold-lt transition-colors">Events &amp; Outings</a></li>
+          <li><a href="#contact" class="hover:text-ggold-lt transition-colors">Contact &amp; Directions</a></li>
+          <li><a href="tel:17127623803" class="hover:text-ggold-lt transition-colors text-ggold-lt font-medium">📞 Call to Reserve a Tee Time</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4 class="font-semibold text-white text-sm uppercase tracking-widest mb-4">Contact</h4>
+        <div class="space-y-3 text-sm text-white/65">
+          <p>1101 Hillcrest Dr<br/>Anita, IA 50020</p>
+          <p><a href="tel:17127623803" class="hover:text-ggold-lt transition-colors">(712) 762-3803</a></p>
+          <p><a href="mailto:golfcrestwoodhills@gmail.com" class="hover:text-ggold-lt transition-colors">golfcrestwoodhills@gmail.com</a></p>
+        </div>
+        <a href="tel:17127623803"
+           class="mt-5 inline-block bg-ggold hover:bg-amber-500 text-white font-bold text-sm px-6 py-2.5 rounded-full transition-colors">
+          📞 Call to Book
+        </a>
+      </div>
+
+    </div>
+
+    <div class="border-t border-white/15 mt-12 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-white/40">
+      <p>&copy; 2026 Crestwood Hills Golf Course. All rights reserved.</p>
+      <p>1101 Hillcrest Dr, Anita, IA 50020</p>
+    </div>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     MOBILE STICKY BOOKING BAR (hidden on lg+)
+════════════════════════════════════════════════════════ -->
+<div id="mobile-book-bar"
+     class="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-ggreen border-t border-white/10 px-4 py-3 items-center justify-between gap-3 shadow-2xl"
+     style="padding-bottom: max(12px, env(safe-area-inset-bottom));">
+  <div class="flex-1 min-w-0">
+    <p class="text-white font-semibold text-sm leading-tight">Crestwood Hills Golf</p>
+    <p class="text-white/60 text-xs">(712) 762-3803 · Anita, Iowa</p>
+  </div>
+  <a href="tel:17127623803"
+     class="flex-shrink-0 bg-ggold hover:bg-amber-500 text-white font-bold text-sm px-6 py-3 rounded-full shadow transition-colors">
+    📞 Call to Book
+  </a>
+</div>
+
+<!-- Scroll-to-top button -->
+<button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">
+  <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+    <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7"/>
+  </svg>
+</button>
+
+
+<!-- ═══════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════ -->
+<script>
+  /* ── Navbar scroll behavior ── */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+    document.getElementById('scroll-top').classList.toggle('show', window.scrollY > 400);
+  });
+
+  /* ── Mobile menu ── */
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuOpen   = document.getElementById('menu-icon-open');
+  const menuClose  = document.getElementById('menu-icon-close');
+  document.getElementById('menu-toggle').addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+    menuOpen.classList.toggle('hidden');
+    menuClose.classList.toggle('hidden');
+  });
+  function closeMobileMenu() {
+    mobileMenu.classList.remove('open');
+    menuOpen.classList.remove('hidden');
+    menuClose.classList.add('hidden');
+  }
+
+  /* ── Tab switching ── */
+  function switchTab(id) {
+    document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+  }
+
+  /* ── Fade-in on scroll (IntersectionObserver) ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* ── Contact form ── */
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    document.getElementById('form-success').classList.remove('hidden');
+    e.target.reset();
+  }
+
+  /* ── Newsletter ── */
+  function handleNewsletterSubmit(e) {
+    e.preventDefault();
+    document.getElementById('newsletter-success').classList.remove('hidden');
+    e.target.reset();
+  }
+</script>
+
+</body>
+</html>
