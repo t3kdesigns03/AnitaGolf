@@ -134,6 +134,12 @@
 
     /* Scenic image sections */
     .scene-img { background-size: cover; background-position: center; }
+
+      /* ── Tilt card base ─────────────────────────────────────────────── */
+      .tilt-card {
+        will-change: transform;
+        transition: transform 0.55s cubic-bezier(0.23,1,0.32,1), box-shadow 0.55s ease;
+      }
   </style>
 </head>
 <body class="bg-white font-body">
@@ -1625,40 +1631,54 @@
       </p>
     </div>
 
-    <!-- Cards: bg-white/95 gives near-solid white backgrounds so no image
-         bleed-through, no backdrop-blur needed. Text is dark for maximum
-         contrast. Gold icon containers pop against the white card surface. -->
-    <div class="grid sm:grid-cols-3 gap-5 fade-up">
+    <!-- Floating tilt cards — semi-transparent frosted glass -->
+    <div class="grid sm:grid-cols-3 gap-6 fade-up">
 
-      <div class="bg-white/95 rounded-2xl p-6 shadow-xl border border-white/60">
-        <div class="w-12 h-12 bg-ggold/15 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6 text-ggold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+      <!-- Group Outings -->
+      <div class="tilt-card relative bg-white/82 backdrop-blur-md rounded-2xl p-7 border border-white/50 overflow-hidden"
+           style="box-shadow:0 8px 32px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.08);">
+        <div class="card-shine absolute inset-0 rounded-2xl opacity-0 pointer-events-none" style="transition:opacity 0.2s ease;"></div>
+        <div class="relative z-10">
+          <div class="w-12 h-12 bg-ggold/20 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-ggold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-ggreen mb-2">Group Outings</h3>
+          <p class="text-gray-700 text-sm leading-relaxed">
+            Bring your group of 8 or more for a private outing. Shotgun starts available. Catering and beverage arrangements can be coordinated in advance.
+          </p>
         </div>
-        <h3 class="font-display text-lg font-bold text-ggreen mb-2">Group Outings</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">
-          Bring your group of 8 or more for a private outing. Shotgun starts available. Catering and beverage arrangements can be coordinated in advance.
-        </p>
       </div>
 
-      <div class="bg-white/95 rounded-2xl p-6 shadow-xl border border-white/60">
-        <div class="w-12 h-12 bg-ggold/15 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6 text-ggold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+      <!-- Club Tournaments -->
+      <div class="tilt-card relative bg-white/82 backdrop-blur-md rounded-2xl p-7 border border-white/50 overflow-hidden"
+           style="box-shadow:0 8px 32px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.08);">
+        <div class="card-shine absolute inset-0 rounded-2xl opacity-0 pointer-events-none" style="transition:opacity 0.2s ease;"></div>
+        <div class="relative z-10">
+          <div class="w-12 h-12 bg-ggold/20 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-ggold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-ggreen mb-2">Club Tournaments</h3>
+          <p class="text-gray-700 text-sm leading-relaxed">
+            Crestwood Hills hosts a season-long series of member tournaments, open events, and charity scrambles. Check the schedule or call for upcoming dates.
+          </p>
         </div>
-        <h3 class="font-display text-lg font-bold text-ggreen mb-2">Club Tournaments</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">
-          Crestwood Hills hosts a season-long series of member tournaments, open events, and charity scrambles. Check the schedule or call for upcoming dates.
-        </p>
       </div>
 
-      <div class="bg-white/95 rounded-2xl p-6 shadow-xl border border-white/60">
-        <div class="w-12 h-12 bg-ggold/15 rounded-xl flex items-center justify-center mb-4">
-          <svg class="w-6 h-6 text-ggold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      <!-- Corporate Events -->
+      <div class="tilt-card relative bg-white/82 backdrop-blur-md rounded-2xl p-7 border border-white/50 overflow-hidden"
+           style="box-shadow:0 8px 32px rgba(0,0,0,0.14),0 2px 8px rgba(0,0,0,0.08);">
+        <div class="card-shine absolute inset-0 rounded-2xl opacity-0 pointer-events-none" style="transition:opacity 0.2s ease;"></div>
+        <div class="relative z-10">
+          <div class="w-12 h-12 bg-ggold/20 rounded-xl flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-ggold" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="font-display text-lg font-bold text-ggreen mb-2">Corporate Events</h3>
+          <p class="text-gray-700 text-sm leading-relaxed">
+            A scenic, relaxed setting for team-building. We can accommodate custom formats, prizes, and sponsorship holes. Packages available for any budget.
+          </p>
         </div>
-        <h3 class="font-display text-lg font-bold text-ggreen mb-2">Corporate Events</h3>
-        <p class="text-gray-600 text-sm leading-relaxed">
-          A scenic, relaxed setting for team-building. We can accommodate custom formats, prizes, and sponsorship holes. Packages available for any budget.
-        </p>
       </div>
+
     </div>
 
     <div class="text-center mt-10 fade-up">
@@ -2094,7 +2114,58 @@
       closeFlyover();
     }
   });
+
+  /* ── Event card 3D tilt (desktop) + press effect (mobile) ─────────── */
+  (function () {
+    var cards = document.querySelectorAll('.tilt-card');
+    var MAX_TILT = 10;
+
+    cards.forEach(function (card) {
+      var shine = card.querySelector('.card-shine');
+
+      function onMove(e) {
+        if (window.innerWidth < 1024) return;
+        var r = card.getBoundingClientRect();
+        var x = e.clientX - r.left;
+        var y = e.clientY - r.top;
+        var rx = ((y - r.height / 2) / (r.height / 2)) * -MAX_TILT;
+        var ry = ((x - r.width  / 2) / (r.width  / 2)) *  MAX_TILT;
+        card.style.transition = 'box-shadow 0.25s ease';
+        card.style.transform  = 'perspective(900px) rotateX('+rx+'deg) rotateY('+ry+'deg) translateY(-6px) scale(1.03)';
+        card.style.boxShadow  = '0 28px 56px rgba(0,0,0,0.22), 0 8px 20px rgba(0,0,0,0.12)';
+        if (shine) {
+          shine.style.opacity    = '1';
+          shine.style.background = 'radial-gradient(circle at '+x+'px '+y+'px, rgba(255,255,255,0.38) 0%, transparent 65%)';
+        }
+      }
+
+      function onLeave() {
+        card.style.transition = 'transform 0.6s cubic-bezier(0.23,1,0.32,1), box-shadow 0.6s ease';
+        card.style.transform  = 'perspective(900px) rotateX(0deg) rotateY(0deg) translateY(0) scale(1)';
+        card.style.boxShadow  = '0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)';
+        if (shine) shine.style.opacity = '0';
+      }
+
+      function onTouchStart() {
+        card.style.transition = 'transform 0.15s ease, box-shadow 0.15s ease';
+        card.style.transform  = 'scale(0.96)';
+        card.style.boxShadow  = '0 4px 12px rgba(0,0,0,0.15)';
+      }
+
+      function onTouchEnd() {
+        card.style.transition = 'transform 0.45s cubic-bezier(0.23,1,0.32,1), box-shadow 0.45s ease';
+        card.style.transform  = 'scale(1)';
+        card.style.boxShadow  = '0 8px 32px rgba(0,0,0,0.14), 0 2px 8px rgba(0,0,0,0.08)';
+      }
+
+      card.addEventListener('mousemove',  onMove);
+      card.addEventListener('mouseleave', onLeave);
+      card.addEventListener('touchstart', onTouchStart, { passive: true });
+      card.addEventListener('touchend',   onTouchEnd,   { passive: true });
+      card.addEventListener('touchcancel',onTouchEnd,   { passive: true });
+    });
+  })();
 </script>
 
 </body>
-</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</html>                                                                                               
